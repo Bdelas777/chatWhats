@@ -25,7 +25,18 @@ def VerifyToken():
 
 @app.route('/whatsapp', methods=["POST"])
 def ReceivedMessage():
-    return "received message!"
+    try:
+        body = request.get_json() 
+        entry = body['entry'][0]
+        changes = entry['changes'][0]
+        value = changes['value']
+        messages = (value['messages'])[0]
+        number = messages['from']
+        print(messages)
+        return "EVENT_RECEIVED", 200
+
+    except:
+        return "ERROR_RECEPTION", 400
 
 if __name__ == '__main__':
     app.run(debug=True)
