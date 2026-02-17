@@ -1,6 +1,7 @@
 from flask import Flask, request
 import os 
 from dotenv import load_dotenv
+import util
 app = Flask(__name__)
 
 @app.route('/welcome', methods=["GET"])
@@ -33,6 +34,7 @@ def ReceivedMessage():
         messages = (value['messages'])[0]
         number = messages['from']
         print(messages)
+        text =  util.GetTextUser(messages)
         return "EVENT_RECEIVED", 200
 
     except:
