@@ -35,6 +35,7 @@ def ReceivedMessage():
         number = messages['from']
         print(messages)
         text =  util.GetTextUser(messages)
+        print(text)
         return "EVENT_RECEIVED", 200
 
     except:
