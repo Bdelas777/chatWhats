@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 def sendMessageWhatsapp(textUser ,number):
     try:
         token = os.getenv("VERIFY_TOKEN_APP")
+        print(token)
         api_url = "https://graph.facebook.com/v22.0/1043923432128675/messages"
         data = {
                     "messaging_product": "whatsapp",    
@@ -21,7 +22,7 @@ def sendMessageWhatsapp(textUser ,number):
             "Content-Type": "application/json",
             "Authorization": f"Bearer {token}"
         }
-        response = requests.post(api_url, headers=headers, data=json.dumps(data))
+        response = requests.post(api_url,data=json.dumps(data), headers=headers)
         if response.status_code == 200:
             print("Message sent successfully")
             return True
