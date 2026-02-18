@@ -31,13 +31,61 @@ def TextMessage(textUser, number):
 
 def TextMessageFormat(number):
     data = {
-    "messaging_product": "whatsapp",    
-    "recipient_type": "individual",
-    "to": number,
-    "type": "text",
-    "text": {
-        "preview_url": False,
-        "body": "*Hola* Bernardo _Todo bien_"
+        "messaging_product": "whatsapp",    
+        "recipient_type": "individual",
+        "to": number,
+        "type": "text",
+        "text": {
+            "preview_url": False,
+            "body": "*Hola* Bernardo _Todo bien_"
+        }
     }
+    return data
+
+def ImageMessage(number):
+    data = {
+        "messaging_product": "whatsapp",    
+        "recipient_type": "individual",
+        "to": number,
+        "type": "image",
+        "image": {
+            "link": "https://biostoragecloud.blob.core.windows.net/resource-udemy-whatsapp-node/image_whatsapp.png"
+        }
+    }
+    return data
+
+def AudioMessage(number):
+    data = {
+        "messaging_product": "whatsapp",    
+        "recipient_type": "individual",
+        "to": number,
+        "type": "audio",
+        "audio": {
+            "link": "https://biostoragecloud.blob.core.windows.net/resource-udemy-whatsapp-node/audio_whatsapp.mp3"
+        }
+    }
+    return data
+
+def VideoMessage(number):
+    data = {
+        "messaging_product": "whatsapp",    
+        "recipient_type": "individual",
+        "to": number,
+        "type": "video",
+        "video": {
+            "link": "https://biostoragecloud.blob.core.windows.net/resource-udemy-whatsapp-node/video_whatsapp.mp4"
+        }
+    }
+    return data
+
+def DocumentMessage(number):
+    data = {
+        "messaging_product": "whatsapp",    
+        "recipient_type": "individual",
+        "to": number,
+        "type": "document",
+        "document": {
+            "link": "https://biostoragecloud.blob.core.windows.net/resource-udemy-whatsapp-node/document_whatsapp.pdf"
+        }
     }
     return data

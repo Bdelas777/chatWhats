@@ -50,6 +50,14 @@ def GenerateMessage(text, number):
         data = util.TextMessage(text, number)
     if "format" in text:        
         data = util.TextMessageFormat(number)
+    if "image" in text:
+        data = util.ImageMessage(number)
+    if "audio" in text:
+        data = util.AudioMessage(number)
+    if "document" in text:
+        data = util.DocumentMessage(number)
+    if "video" in text:
+        data = util.VideoMessage(number)
     whatsappservice.sendMessageWhatsapp(data)
     
 if __name__ == '__main__':
