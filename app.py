@@ -58,6 +58,8 @@ def GenerateMessage(text, number):
         data = util.DocumentMessage(number)
     if "video" in text:
         data = util.VideoMessage(number)
+    if "location" in text:
+        data = util.LocationMessage(number)
     whatsappservice.sendMessageWhatsapp(data)
     
 if __name__ == '__main__':
