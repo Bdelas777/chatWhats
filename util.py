@@ -15,3 +15,29 @@ def GetTextUser(message):
     else:
         print("[!] Message type not supported")
     return text
+
+def TextMessage(textUser, number):
+    data = {
+                    "messaging_product": "whatsapp",    
+                    "recipient_type": "individual",
+                    "to": number,
+                    "type": "text",
+                    "text": {
+                        "preview_url": False,
+                        "body": textUser
+                    }
+                }
+    return data
+
+def TextMessageFormat(number):
+    data = {
+    "messaging_product": "whatsapp",    
+    "recipient_type": "individual",
+    "to": number,
+    "type": "text",
+    "text": {
+        "preview_url": False,
+        "body": "*Hola* Bernardo _Todo bien_"
+    }
+    }
+    return data

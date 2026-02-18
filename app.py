@@ -41,12 +41,16 @@ def ReceivedMessage():
         GenerateMessage(text, number)
         return "EVENT_RECEIVED", 200
 
-    except:
+    except Exception as e:
+        print(e)
         return "ERROR_RECEPTION", 400
 
 def GenerateMessage(text, number):
-    text = 'The user said: ' + text
-    whatsappservice.sendMessageWhatsapp(text, number)
+    if "text" in text:
+        data = util.TextMessage(text, number)
+    if "format" in text:        
+        data = util.TextMessageFormat(number)
+    whatsappservice.sendMessageWhatsapp(data)
     
 if __name__ == '__main__':
     app.run(debug=True)

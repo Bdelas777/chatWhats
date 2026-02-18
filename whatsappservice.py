@@ -3,21 +3,12 @@ import json
 import os 
 from dotenv import load_dotenv
 
-def sendMessageWhatsapp(textUser ,number):
+def sendMessageWhatsapp(data):
     try:
         token = os.getenv("VERIFY_TOKEN_APP")
         print(token)
         api_url = "https://graph.facebook.com/v22.0/1043923432128675/messages"
-        data = {
-                    "messaging_product": "whatsapp",    
-                    "recipient_type": "individual",
-                    "to": number,
-                    "type": "text",
-                    "text": {
-                        "preview_url": False,
-                        "body": textUser
-                    }
-                }
+        
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {token}"
