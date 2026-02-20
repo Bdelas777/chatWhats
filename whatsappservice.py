@@ -24,17 +24,3 @@ def sendMessageWhatsapp(data):
         print(f"Error sending message: {e}")
         return False
 
-def LocationMessage(number):
-    data = {
-        "messaging_product": "whatsapp",    
-        "recipient_type": "individual",
-        "to": number,
-        "type": "location",
-        "location": {
-            "latitude": 37.7749,
-            "longitude": -122.4194,
-            "name": "San Francisco",
-            "address": "San Francisco, CA"
-        }
-    }
-    return data

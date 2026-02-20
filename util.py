@@ -104,3 +104,37 @@ def LocationMessage(number):
         }
     }
     return data
+
+def ButtonsMessage(number):
+    data = {
+        "messaging_product": "whatsapp",    
+        "recipient_type": "individual",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "button",
+            "body": {
+                "text": "¿Qué deseas hacer?"
+            },
+            "action": {
+                "buttons": [
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "button1",
+                            "title": "Ver productos"
+                        }
+                    },
+                    {
+                        "type": "reply",
+                        "reply": {
+                            "id": "button2",
+                            "title": "Ver servicios"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+       
+    return data

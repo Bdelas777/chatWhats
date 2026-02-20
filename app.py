@@ -35,31 +35,34 @@ def ReceivedMessage():
         value = changes['value']
         messages = (value['messages'])[0]
         number = messages['from']
+        typeMessage = messages['type']
         print(messages)
         text =  util.GetTextUser(messages)
         print(f"Received message: {text} from number: {number}")
-        GenerateMessage(text, number)
+        GenerateMessage(text, number,typeMessage)
         return "EVENT_RECEIVED", 200
 
     except Exception as e:
         print(e)
         return "ERROR_RECEPTION", 400
 
-def GenerateMessage(text, number):
-    if "text" in text:
+def GenerateMessage(text, number,typeMessage):
+    if "text" in typeMessage:
         data = util.TextMessage(text, number)
-    if "format" in text:        
+    if "format" in typeMessage:        
         data = util.TextMessageFormat(number)
-    if "image" in text:
+    if "image" in typeMessage:
         data = util.ImageMessage(number)
-    if "audio" in text:
+    if "audio" in typeMessage:
         data = util.AudioMessage(number)
-    if "document" in text:
+    if "document" in typeMessage:
         data = util.DocumentMessage(number)
-    if "video" in text:
+    if "video" in typeMessage:
         data = util.VideoMessage(number)
-    if "location" in text:
+    if "location" in typeMessage:
         data = util.LocationMessage(number)
+    if 'button' in typeMessage:
+        data = util.ButtonsMessage(number)
     whatsappservice.sendMessageWhatsapp(data)
     
 if __name__ == '__main__':
