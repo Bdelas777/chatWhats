@@ -63,6 +63,8 @@ def GenerateMessage(text, number,typeMessage):
         data = util.LocationMessage(number)
     if 'button' in typeMessage:
         data = util.ButtonsMessage(number)
+    if 'list' in typeMessage:
+        data = util.ListMessage(number)
     whatsappservice.sendMessageWhatsapp(data)
     
 if __name__ == '__main__':

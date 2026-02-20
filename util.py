@@ -138,3 +138,46 @@ def ButtonsMessage(number):
     }
        
     return data
+
+def ListMessage(number):
+    data = {
+        "messaging_product": "whatsapp",
+        "recipient_type": "individual",
+        "to": number,
+        "type": "interactive",
+        "interactive": {
+            "type": "list",
+            "header": {
+                "type": "text",
+                "text": "Catálogo"
+            },
+            "body": {
+                "text": "Selecciona una categoría o producto para más detalles"
+            },
+            "footer": {
+                "text": "Puedes seleccionar solo una opción"
+            },
+            "action": {
+                "button": "Ver opciones",
+                "sections": [
+                    {
+                        "title": "Productos",
+                        "rows": [
+                            {"id": "product_1", "title": "Producto A", "description": "Descripción breve del Producto A"},
+                            {"id": "product_2", "title": "Producto B", "description": "Descripción breve del Producto B"},
+                            {"id": "product_3", "title": "Producto C", "description": "Descripción breve del Producto C"}
+                        ]
+                    },
+                    {
+                        "title": "Servicios",
+                        "rows": [
+                            {"id": "service_1", "title": "Servicio X", "description": "Descripción breve del Servicio X"},
+                            {"id": "service_2", "title": "Servicio Y", "description": "Descripción breve del Servicio Y"},
+                            {"id": "service_3", "title": "Servicio Z", "description": "Descripción breve del Servicio Z"}
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+    return data
