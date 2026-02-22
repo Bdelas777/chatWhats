@@ -39,32 +39,56 @@ def ReceivedMessage():
         print(messages)
         text =  util.GetTextUser(messages)
         print(f"Received message: {text} from number: {number}")
-        GenerateMessage(text, number,typeMessage)
+        GenerateMessage(messages, text, number, typeMessage)
         return "EVENT_RECEIVED", 200
 
     except Exception as e:
         print(e)
         return "ERROR_RECEPTION", 400
 
-def GenerateMessage(text, number,typeMessage):
-    if "text" in typeMessage:
-        data = util.TextMessage(text, number)
-    if "format" in typeMessage:        
-        data = util.TextMessageFormat(number)
-    if "image" in typeMessage:
-        data = util.ImageMessage(number)
-    if "audio" in typeMessage:
-        data = util.AudioMessage(number)
-    if "document" in typeMessage:
-        data = util.DocumentMessage(number)
-    if "video" in typeMessage:
-        data = util.VideoMessage(number)
-    if "location" in typeMessage:
-        data = util.LocationMessage(number)
-    if 'button' in typeMessage:
-        data = util.ButtonsMessage(number)
-    if 'list' in typeMessage:
-        data = util.ListMessage(number)
+def GenerateMessage(messages, text, number, typeMessage):
+    # Default reply
+    data = util.TextMessage("Lo siento, no entendí tu mensaje.", number)
+
+    try:
+        if typeMessage == "text":
+            t = (text or "").strip().lower()
+            if t in ["hola", "hi", "hello"] or "hola" in t:
+                data = util.TextMessage("¡Hola! ¿Deseas ver productos o servicios?", number)
+            else:
+                # Echo back by default
+                data = util.TextMessage(f"Recibí: {text}", number)
+
+        elif typeMessage == "interactive":
+            interactive = messages.get("interactive", {})
+            itype = interactive.get("type")
+            if itype == "button_reply":
+                title = interactive.get("button_reply", {}).get("title", "")
+                if title.lower() == "ver productos":
+                    data = util.ListMessage(number)
+                elif title.lower() == "ver servicios":
+                    data = util.TextMessage("Nuestros servicios:\n- Servicio X\n- Servicio Y\n- Servicio Z", number)
+                else:
+                    data = util.TextMessage(f"Has pulsado: {title}", number)
+
+            elif itype == "list_reply":
+                title = interactive.get("list_reply", {}).get("title", "")
+                # Productos
+                if title in ["Producto A", "Producto B", "Producto C"]:
+                    data = util.TextMessage(f"Detalle de {title}: Aquí tienes la descripción y precio.", number)
+                elif title in ["Servicio X", "Servicio Y", "Servicio Z"]:
+                    data = util.TextMessage(f"Detalle de {title}: Información del servicio.", number)
+                else:
+                    data = util.TextMessage(f"Seleccionaste: {title}", number)
+
+        else:
+            # Other media types: send a friendly confirmation
+            data = util.TextMessage("Mensaje recibido. ¿Quieres probar con 'hola' o ver opciones?", number)
+
+    except Exception as e:
+        print(f"Error generating message: {e}")
+        data = util.TextMessage("Ocurrió un error procesando tu mensaje.", number)
+
     whatsappservice.sendMessageWhatsapp(data)
     
 if __name__ == '__main__':
